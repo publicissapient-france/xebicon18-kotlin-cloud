@@ -1,7 +1,6 @@
 // export export GOOGLE_CLOUD_PROJECT=xebicon-kt
 // export GOOGLE_APPLICATION_CREDENTIALS=xebicon-kt-8d957ca3a32d.json
 
-
 buildscript {
   repositories {
     jcenter()

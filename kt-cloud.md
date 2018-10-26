@@ -190,7 +190,7 @@ fun Application.main() {
 
 # That's it!
 
-TODO fly to the moon
+TODO Image fly to the moon?
 
 ```bash
 ./gradlew appengineRun
@@ -279,7 +279,7 @@ post("/events") {
 
 # Kt can do more?
 
-## Kt extensions ❤️
+## Extensions ❤️
 
 [.code-highlight: none]
 [.code-highlight: 1]
@@ -310,8 +310,73 @@ post("/events") {
 
 ---
 
+# Performance and cost
+
+TODO overview on performance over Java? And cost of Appengine?
+
+---
+
 # What next?
 
 ## Does it behave nicely on serverless AWS Lambda?
 
 ---
+
+- Serverless (easier)
+
+- Or Gradle plugin
+
+---
+
+- Need a fat|uber jar
+
+---
+
+[.code-highlight: none]
+[.code-highlight: 3-4]
+[.code-highlight: 8-9]
+[.code-highlight: 12-13]
+[.code-highlight: 16-18]
+
+```gradle
+buildscript {
+  dependencies {
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    classpath "com.github.jengelman.gradle.plugins:shadow:$shadow_jar_version"
+  }
+}
+
+apply plugin: 'kotlin'
+apply plugin: 'com.github.johnrengelman.shadow'
+
+dependencies {
+  compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+  compile "com.amazonaws:aws-lambda-java-core:$aws_version"
+}
+
+task deploy(type: Exec, dependsOn: 'shadowJar') {
+  commandLine 'serverless', 'deploy'
+}
+```
+
+---
+
+## Configure Serverless to deploy on Lambda and create a gateway
+
+[.code-highlight: none]
+[.code-highlight: 1]
+[.code-highlight: 3]
+[.code-highlight: 5-7]
+[.code-highlight: 9]
+
+```bash
+$ ./gradlew shadowJar
+
+$ ./gradlew deploy
+
+$ curl "https://7mb7k6tk6h.execute-api.eu-west-1.amazonaws.com/dev/save-event"
+    -H "Content-Type: application/json"
+    --request POST --data '{"title":"Kt in Cloud"}'
+
+$ serverless remove
+```

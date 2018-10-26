@@ -1,0 +1,18 @@
+service: kt-aws-lambda
+
+provider:
+  name: aws
+  runtime: java8
+  region: eu-west-1
+  stage: dev
+
+package:
+  artifact: build/libs/kt-aws-save-event-all.jar
+
+functions:
+  saveEvent:
+    handler: SaveEvent
+    events:
+      - http:
+          path: save-event
+          method: post
