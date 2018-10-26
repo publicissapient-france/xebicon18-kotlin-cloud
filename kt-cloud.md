@@ -1,3 +1,4 @@
+theme: Fira, 6
 slidenumbers: true
 
 ![](https://xebicon.fr/wp-content/uploads/2018/06/Xebicon18-brongniart-tech4exec.jpg)
@@ -49,7 +50,7 @@ Fullstack Developer
 ^ Partager du code
 Utiliser des bibliothèques connues
 
---- 
+---
 
 # Why?
 
@@ -75,7 +76,7 @@ Utiliser des bibliothèques connues
 
 - Ktor
 
---- 
+---
 
 > Easy to use, fun and asynchronous.
 -- ktor.io
@@ -147,17 +148,17 @@ ktor {
 ```kotlin
 data class Speaker(val name: String)
 
-data class Event(val title: String, 
-  val description: String, 
-  val speakers: List<Speaker>, 
+data class Event(val title: String,
+  val description: String,
+  val speakers: List<Speaker>,
   val date: LocalDate)
 
 val amaze = Speaker("Amaze")
 
 val events = listOf(
-  Event("Keynote", 
-    "Amazing Keynote from an amazing speaker", 
-    listOf(amaze), 
+  Event("Keynote",
+    "Amazing Keynote from an amazing speaker",
+    listOf(amaze),
     LocalDate.of(2018, 11, 20))
 )
 ```
@@ -199,6 +200,118 @@ TODO fly to the moon
 
 # Deploy to App Engine
 
-- `gcloud init`
-- `gcloud projects create xebicon-kt-gcp`
+[.code-highlight: none]
+[.code-highlight: 1]
+[.code-highlight: 3]
+[.code-highlight: 5]
+[.code-highlight: 7]
 
+```bash
+gcloud init
+
+gcloud projects create xebicon-kt-gcp
+
+gcloud config set project xebicon-kt-gcp
+
+gcloud app create
+
+./gradlew appengineDeploy
+```
+
+---
+
+# A database?
+
+## Let's try Cloud Datastore!
+
+---
+
+# Save an event (Java)
+
+[.code-highlight: none]
+[.code-highlight: 1]
+[.code-highlight: 3]
+[.code-highlight: 5]
+[.code-highlight: 7-9]
+[.code-highlight: 11]
+
+```java
+Datastore service = DatastoreOptions.getDefaultInstance().getService();
+
+KeyFactory factory = service.newKeyFactory();
+
+IncompleteKey key = factory.setKind("events").newKey();
+
+FullEntity<IncompleteKey> entity = FullEntity.newBuilder(key)
+  .set("title", event.title)
+  .build();
+
+service.add(entity);
+```
+
+---
+
+# Save an event (Kt)
+
+[.code-highlight: none]
+[.code-highlight: 1]
+[.code-highlight: 2]
+[.code-highlight: 3]
+[.code-highlight: 7-9]
+[.code-highlight: 11]
+
+```kotlin
+post("/events") {
+  val event = call.receive<Event>()
+  val service = DatastoreOptions.getDefaultInstance().service
+
+  val keyFactory = service.newKeyFactory()
+  val key = keyFactory.setKind("events").newKey()
+  val dsEvent = FullEntity.newBuilder(key)
+    .set("title", event.title)
+    .build()
+
+  service.add(event.build(service))
+}
+```
+
+---
+
+# Kt can do more?
+
+## Kt extensions ❤️
+
+[.code-highlight: none]
+[.code-highlight: 1]
+[.code-highlight: 3-6]
+[.code-highlight: 8-12]
+
+```kotlin
+import fr.xebicon.extension.build
+
+fun Event.build(service: Datastore): FullEntity<IncompleteKey> {
+  val key = service.newKeyFactory().setKind("events").newKey()
+  return FullEntity.newBuilder(key).set("title", title).build()
+}
+
+post("/events") {
+  val event = call.receive<Event>()
+  val service = DatastoreOptions.getDefaultInstance().service
+  service.add(event.build(service))
+}
+```
+
+---
+
+# What we have?
+
+1. Backend in Kt on Appengine (GCP) with Ktor
+1. DB (Datastore) enhanced with Kt extensions
+
+---
+
+# What next?
+
+## Does it behave nicely on serverless AWS Lambda?
+
+---

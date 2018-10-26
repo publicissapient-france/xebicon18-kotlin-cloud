@@ -1,3 +1,7 @@
+// export export GOOGLE_CLOUD_PROJECT=xebicon-kt
+// export GOOGLE_APPLICATION_CREDENTIALS=xebicon-kt-8d957ca3a32d.json
+
+
 buildscript {
   repositories {
     jcenter()
@@ -27,8 +31,16 @@ dependencies {
   compile "io.ktor:ktor-server-servlet:$ktor_version"
   compile "io.ktor:ktor-gson:$ktor_version"
   compile "com.google.cloud:google-cloud-logging-logback:$gce_logback_version"
+  compile "com.google.cloud:google-cloud-datastore:$gcp_datastore_version"
 
   providedCompile "com.google.appengine:appengine:$appengine_version"
+}
+
+appengine {
+  deploy {
+    stopPreviousVersion = true
+    promote = true
+  }
 }
 
 kotlin.experimental.coroutines = 'enable'
