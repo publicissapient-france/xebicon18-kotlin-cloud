@@ -11,7 +11,7 @@ slidenumbers: true
 
 # Who we are?
 
-![left fit filtered](blacroix.jpg)
+![left filtered](blacroix.jpg)
 
 Benjamin Lacroix
 
@@ -24,7 +24,7 @@ Fullstack Developer
 
 # Who we are?
 
-![left fit filtered](blacroix.jpg)
+![left filtered](blacroix.jpg)
 
 Paul-Guillaume
 
@@ -86,8 +86,9 @@ Utiliser des bibliothèques connues
 # Requirements
 
 - Google Cloud CLI
-- GCloud App Engine Java: `gcloud components install app-engine-java`
-- Use GCloud Github repository for Ktor and AppEngine
+- GCloud App Engine Java
+- GCloud Github repository for 
+Ktor and AppEngine
 
 ---
 
@@ -153,7 +154,7 @@ data class Event(val title: String,
   val speakers: List<Speaker>,
   val date: LocalDate)
 
-val amaze = Speaker("Amaze")
+val amaze = Speaker("John")
 
 val events = listOf(
   Event("Keynote",
@@ -318,7 +319,8 @@ TODO overview on performance over Java? And cost of Appengine?
 
 # What next?
 
-## Does it behave nicely on serverless AWS Lambda?
+## Does it behave nicely on 
+## AWS Lambda?
 
 ---
 
@@ -378,5 +380,36 @@ $ curl "https://7mb7k6tk6h.execute-api.eu-west-1.amazonaws.com/dev/save-event"
     -H "Content-Type: application/json"
     --request POST --data '{"title":"Kt in Cloud"}'
 
-$ serverless remove
+$ sls remove
+```
+
+---
+
+# A database?
+
+## Let's try Dynamo
+
+---
+# serverless.yml
+
+```yaml
+provider:
+  name: aws
+  runtime: java8
+  region: eu-west-3
+  iamRoleStatements:
+  - Effect: Allow
+    Action:
+    - dynamodb:PutItem
+    Resource: "arn:aws:dynamodb:eu-west-3:*:*"
+package:
+  artifact: build/libs/kt-aws-save-event-all.jar
+functions:
+  saveEvent:
+    handler: SaveEvent
+    memorySize: 1024
+    events:
+    - http:
+        path: save-event
+        method: post
 ```
