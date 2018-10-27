@@ -223,7 +223,7 @@ gcloud app create
 
 # A database?
 
-## Let's try Cloud Datastore!
+## Let's try __Datastore__!
 
 ---
 
@@ -280,7 +280,7 @@ post("/events") {
 
 # Kt can do more?
 
-## Extensions ❤️
+## __Extensions ❤️__
 
 [.code-highlight: none]
 [.code-highlight: 1]
@@ -319,8 +319,8 @@ TODO overview on performance over Java? And cost of Appengine?
 
 # What next?
 
-## Does it behave nicely on 
-## AWS Lambda?
+## __Does it behave nicely on__
+## __AWS Lambda?__
 
 ---
 
@@ -330,6 +330,7 @@ TODO overview on performance over Java? And cost of Appengine?
 
 ---
 
+- Java 8
 - Need a fat|uber jar
 
 ---
@@ -387,7 +388,7 @@ $ sls remove
 
 # A database?
 
-## Let's try Dynamo
+## Let's try __Dynamo__
 
 ---
 # serverless.yml
@@ -413,3 +414,26 @@ functions:
         path: save-event
         method: post
 ```
+
+--- 
+
+# What we have done?
+
+- AWS Lambda with Serverless
+- DynamoDB + extensions
+
+---
+
+# What next?
+
+## Can I do Kotlin on __Azure__?
+
+---
+
+# Considerations
+
+- .NET Core SDK
+- Core Tools Development
+- No Gradle plugin yet :cry:
+- Actually in preview :umbrella: (Java)
+- Only `Maven` for now
