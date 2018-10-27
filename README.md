@@ -15,7 +15,7 @@ Check [kotlin-cloud.md](kotlin-cloud.md) based on [Deckset](https://www.deckset.
 - [ ] Why kt is cool
 - [x] Kt @ AppEngine
 - [x] Why kt is cool
-- [ ] Kt @ AWS Lambda (WIP @blacroix)
+- [x] Kt @ AWS Lambda
 - [ ] Why kt is cool
 - [ ] Kt @ Azure Function
 - [ ] Take away
