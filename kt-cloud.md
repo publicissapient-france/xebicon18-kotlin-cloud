@@ -66,6 +66,18 @@ Utiliser des bibliothèques connues
 
 ---
 
+# What?
+
+- Statically typed programming language that targets JVM, Android, Javascript and Native
+
+- Developed by JetBrains
+
+- Established in 2011 and open-sourced early on
+
+- version 1.0 released in 2016
+
+---
+
 # Google Cloud Platform
 
 - Java 8
