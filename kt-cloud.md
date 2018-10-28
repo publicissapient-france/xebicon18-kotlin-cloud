@@ -44,8 +44,11 @@ Fullstack Developer
 
 # Whose for?
 
-- Android developer wanting to build backend apps
-- Backend developer thinking of switching to Kotlin
+- Android developer 
+wanting to build backend apps
+
+- Backend developer
+thinking of switching to Kotlin
 
 ^ Partager du code
 Utiliser des bibliothèques connues
@@ -56,15 +59,15 @@ Utiliser des bibliothèques connues
 
 ![](https://blog.socialcops.com/wp-content/uploads/2017/05/FeaturedImage-Android-Kotlin-Development-Engineering-SocialCops-Blog.png)
 
-- I am an Android developer
+- We are Android and backend developers
 
-- Kotlin already on Android
+- Kotlin is already on Android
 
-- Kotlin is better than Java
+- Kotlin is better than Java ✨
 
-- How to go From Android to backend
+- How to go From Android to backend?
 
-- Let's try GCP
+- Let's try GCP ☁️
 
 ---
 
@@ -94,7 +97,7 @@ Utiliser des bibliothèques connues
 
 ---
 
-> Easy to use, fun and asynchronous.
+> __Easy to use, fun and asynchronous.__
 -- ktor.io
 
 ---
@@ -205,17 +208,9 @@ fun Application.main() {
 
 ---
 
-# That's it!
+# Deploy to App Engine
 
 ![](https://www.mediaan.com/wp-content/uploads/2017/01/launch17.jpg)
-
-```bash
-./gradlew appengineRun
-```
-
----
-
-# Deploy to App Engine
 
 [.code-highlight: none]
 [.code-highlight: 1]
@@ -234,6 +229,8 @@ gcloud app create
 
 ./gradlew appengineDeploy
 ```
+
+^./gradlew appengineRun (local)
 
 ---
 
@@ -670,8 +667,10 @@ fun saveEvent(data: String, context: ExecutionContext): String {
 ```
 
 ---
-
-# Thats'it!
+![40%](https://adatumno.azureedge.net/wp-content/uploads/2018/07/functions-logo.png?2aa027)
+![50%](https://azure.microsoft.com/svghandler/cosmos-db?width=1200&height=630)
+![30%](./gradle.png)
+# That's it!
 - Kotlin on Azure Function
 - CosmosDb
 - Gradle 🔥
@@ -682,7 +681,7 @@ fun saveEvent(data: String, context: ExecutionContext): String {
 
 ---
 
-> They did not know it was impossible so they did it.
+> __They did not know it was impossible so they did it.__
 -- Mark Twain
 
 ---
