@@ -1,0 +1,21 @@
+{
+  "scriptFile": "../function.jar",
+  "entryPoint": "FunctionKt.saveEvent",
+  "bindings": [
+    {
+      "type": "httpTrigger",
+      "name": "data",
+      "direction": "in",
+      "dataType": "string",
+      "authLevel": "anonymous",
+      "methods": [
+        "post"
+      ]
+    },
+    {
+      "type": "http",
+      "name": "$return",
+      "direction": "out"
+    }
+  ]
+}

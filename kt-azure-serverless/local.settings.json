@@ -1,0 +1,9 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "WEBSITE_AUTH_ENABLED": "False",
+    "FUNCTIONS_WORKER_RUNTIME": "java",
+    "WEBSITE_SITE_NAME": "kt-azure",
+    "WEBSITE_SLOT_NAME": "Production"
+  }
+}

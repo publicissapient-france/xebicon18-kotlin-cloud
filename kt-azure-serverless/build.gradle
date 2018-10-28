@@ -1,0 +1,92 @@
+buildscript {
+  repositories {
+    mavenCentral()
+    jcenter()
+  }
+  dependencies {
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    classpath "com.github.jengelman.gradle.plugins:shadow:$shadow_jar_version"
+  }
+}
+
+apply plugin: 'kotlin'
+apply plugin: 'com.github.johnrengelman.shadow'
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+  compile "com.microsoft.azure.functions:azure-functions-java-library:$azure_function_version"
+  implementation "com.squareup.moshi:moshi-kotlin:$moshi_version"
+  compile "com.microsoft.azure:azure-documentdb:$cosmodb_version"
+
+}
+
+compileKotlin {
+  kotlinOptions.jvmTarget = "1.8"
+}
+
+compileTestKotlin {
+  kotlinOptions.jvmTarget = "1.8"
+}
+
+ext {
+  azureOutputDir = "$buildDir/azure-functions/"
+}
+
+task copyFunctionDefs(type: Copy) {
+  group 'azure'
+  from 'src/main/resources'
+  into azureOutputDir
+  include('**/function.json')
+}
+
+task copyJar(type: Copy) {
+  group 'azure'
+  dependsOn 'shadowJar'
+  from "$libsDir/${rootProject.name}-all.jar"
+  into azureOutputDir
+  rename { String fileName ->
+    fileName.replace("${rootProject.name}-all", 'function')
+  }
+}
+
+task cleanFunction(type: Delete) {
+  group 'azure'
+  delete azureOutputDir
+}
+
+task packageFunction(type: Copy) {
+  group 'azure'
+  dependsOn 'cleanFunction', 'copyJar', 'copyFunctionDefs'
+  from rootDir
+  into azureOutputDir
+  include('host.json', 'local.settings.json')
+}
+
+task run(type: Exec) {
+  group 'azure'
+  dependsOn 'packageFunction'
+  workingDir azureOutputDir
+  commandLine 'func', 'host', 'start'
+}
+
+task zip(type: Zip) {
+  group 'azure'
+  archiveName "${rootProject.name}.zip"
+  destinationDir file(buildDir)
+  from azureOutputDir
+}
+
+task deploy(type: Exec) {
+  group 'azure'
+  dependsOn 'packageFunction', 'zip'
+  commandLine 'az', 'functionapp', 'deployment', 'source', 'config-zip', '-g', "${rootProject.name}-group", '-n', "${rootProject.name}", '--src', "${buildDir}/${rootProject.name}.zip"
+}
+
+task cleanup(type: Exec) {
+  group 'azure'
+  commandLine 'az', 'group', 'delete', '--name', "${rootProject.name}-group", '--yes'
+}

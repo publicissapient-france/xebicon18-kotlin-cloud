@@ -36,9 +36,9 @@ Fullstack Developer
 # Agenda
 
 - Kotlin?
-- Google Cloud Platform
-- Amazon Web Services
-- Azure
+- Appengine on GCP
+- Lambda on AWS
+- Function on Azure
 
 ---
 
@@ -154,12 +154,12 @@ data class Event(val title: String,
   val speakers: List<Speaker>,
   val date: LocalDate)
 
-val amaze = Speaker("John")
+val john = Speaker("John")
 
 val events = listOf(
   Event("Keynote",
     "Amazing Keynote from an amazing speaker",
-    listOf(amaze),
+    listOf(john),
     LocalDate.of(2018, 11, 20))
 )
 ```
@@ -331,7 +331,8 @@ TODO overview on performance over Java? And cost of Appengine?
 ---
 
 - Java 8
-- Need a fat|uber jar
+
+- Need a fat | uber jar
 
 ---
 
@@ -364,7 +365,41 @@ task deploy(type: Exec, dependsOn: 'shadowJar') {
 
 ---
 
-## Configure Serverless to deploy on Lambda and create a gateway
+# serverless.yml
+
+```yaml
+provider:
+  name: aws
+  runtime: java8
+  region: eu-west-3
+package:
+  artifact: build/libs/kt-aws-save-event-all.jar
+functions:
+  saveEvent:
+    handler: SaveEvent
+    memorySize: 1024
+    events:
+    - http:
+        path: save-event
+        method: post
+```
+
+--- 
+
+# SaveEvent.kt
+
+```kotlin
+class SaveEvent : RequestHandler<Map<String, Any>, Unit> {
+
+  override fun handleRequest(input: Map<String, Any>, context: Context) {
+    println("Event processed")
+  }
+}
+```
+
+---
+
+## Build & deploy
 
 [.code-highlight: none]
 [.code-highlight: 1]
@@ -376,12 +411,6 @@ task deploy(type: Exec, dependsOn: 'shadowJar') {
 $ ./gradlew shadowJar
 
 $ ./gradlew deploy
-
-$ curl "https://7mb7k6tk6h.execute-api.eu-west-1.amazonaws.com/dev/save-event"
-    -H "Content-Type: application/json"
-    --request POST --data '{"title":"Kt in Cloud"}'
-
-$ sls remove
 ```
 
 ---
@@ -391,6 +420,7 @@ $ sls remove
 ## Let's try __Dynamo__
 
 ---
+
 # serverless.yml
 
 ```yaml
@@ -415,12 +445,38 @@ functions:
         method: post
 ```
 
---- 
+---
+
+# SaveEvent.kt
+
+```kotlin
+class SaveEvent : RequestHandler<Map<String, Any>, Unit> {
+  private val mapper = jacksonObjectMapper()
+  override fun handleRequest(input: Map<String, Any>, context: Context) {
+    val event = mapper.readValue<Event>(input[BODY] as String)
+    val client = AmazonDynamoDBClientBuilder.standard().build()
+    val db = DynamoDB(client)
+    val table = db.getTable(EVENTS)
+    table.putItem(event.build())
+  }
+}
+```
+
+---
+
+# Extension :heart:
+
+```kotlin
+private fun Event.build(): Item =
+  Item().withPrimaryKey("title", title).withString("description", description)
+```
+
+---
 
 # What we have done?
 
 - AWS Lambda with Serverless
-- DynamoDB + extensions
+- DynamoDB + Kotlin extension
 
 ---
 
@@ -434,6 +490,138 @@ functions:
 
 - .NET Core SDK
 - Core Tools Development
-- No Gradle plugin yet :cry:
+- Azure CLI
+
+- No `Gradle` plugin yet :cry:
+- Only `Maven`
 - Actually in preview :umbrella: (Java)
-- Only `Maven` for now
+- Fat | uber jar as Lambda
+- Not supported yet by Serverless (Node)
+
+---
+
+# Structure
+
+```
+├── host.json
+├── local.settings.json
+├── build.gradle
+└── src
+    └── main
+        ├── kotlin
+        │   └── Function.kt
+        └── resources
+            └── saveEvent
+                └── function.json
+```
+
+---
+
+# Dist
+
+```
+├── build
+│   ├── azure-functions
+│   │   ├── saveEvent
+│   │   │   └── function.json
+│   │   ├── function.jar
+│   │   ├── host.json
+│   │   └── local.settings.json
+```
+
+---
+
+# Configuration
+
+```json
+```
+
+---
+
+# Build
+
+^ Deps fat jar = Lambda
+Plugin Kotlin + Shadow
+Jar, copie conf + host.json
+CLI Azure function
+
+```gradle
+dependencies {
+  compile "com.microsoft.azure.functions:azure-functions-java-library:$azure_function_version"
+}
+task run(type: Exec) {
+  workingDir $buildDir/azure-functions/
+  commandLine 'func', 'host', 'start'
+}
+task deploy(type: Exec) {
+  commandLine 'az', 'functionapp', 'deployment', 'source', 'config-zip', '-g', "${rootProject.name}-group", '-n', "${rootProject.name}", '--src', "${buildDir}/${rootProject.name}.zip"
+}
+```
+
+---
+
+# SaveEvent.kt
+
+```kotlin
+val moshi: Moshi = Moshi.Builder()
+  .add(KotlinJsonAdapterFactory())
+  .build()
+
+val eventAdapter: JsonAdapter<Event> = moshi.adapter(Event::class.java)
+
+fun saveEvent(data: String, context: ExecutionContext): String {
+  val event = eventAdapter.fromJson(data)
+  return event?.title ?: data
+}
+```
+
+---
+
+# A database?
+
+## Let's try __CosmosDB__ 🌎
+
+---
+
+# Function.kt
+
+```kotlin
+val client = DocumentClient("https://kt-azure.documents.azure.com:443/",
+  KEY,
+  ConnectionPolicy.GetDefault(),
+  ConsistencyLevel.Session)
+
+val database: Database = client.queryDatabases("SELECT * FROM root r WHERE r.id='KtAzure'", null)
+  .queryIterable.toList()[0]
+
+val collection: DocumentCollection = client.queryCollections(database.selfLink, "SELECT * FROM root r WHERE r.id='Events'", null)
+  .queryIterable.toList()[0]
+
+fun saveEvent(data: String, context: ExecutionContext): String {
+  val eventDocument = Document(data)
+  client.createDocument(collection.selfLink, eventDocument, null, false).resource
+  return data
+}
+```
+
+---
+
+# Thats'it!
+- Kotlin on Azure Function
+- CosmosDb
+- Gradle 🔥
+
+---
+
+> Ils ne savaient pas que c’était impossible, alors ils l’ont fait.
+-- Mark Twain
+
+---
+
+# Thank you!
+
+## Take away
+
+- cloud.google.com/kotlin/
+- github.com/xebia-france/xebicon-kotlin-cloud
+- xebicon.fr
