@@ -71,6 +71,8 @@ Utiliser des bibliothèques connues
 
 ---
 
+![30%](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/JetBrains_Logo_2016.svg/1200px-JetBrains_Logo_2016.svg.png)
+
 # What?
 
 - Statically typed programming language that targets JVM, Android, Javascript and Native
