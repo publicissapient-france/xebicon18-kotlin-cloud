@@ -497,8 +497,8 @@ private fun Event.build(): Item =
 
 ---
 
-![](https://fbrazeal.files.wordpress.com/2016/06/lambda.png?w=1200)
-![](https://cdn-images-1.medium.com/max/1200/1*qp3u7D_FkGlFeBPUx7hcLg.png)
+![30%](https://fbrazeal.files.wordpress.com/2016/06/lambda.png?w=1200)
+![30%](https://cdn-images-1.medium.com/max/1200/1*qp3u7D_FkGlFeBPUx7hcLg.png)
 
 # What we have done?
 
