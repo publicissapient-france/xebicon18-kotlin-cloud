@@ -54,6 +54,8 @@ Utiliser des bibliothèques connues
 
 # Why?
 
+![](https://blog.socialcops.com/wp-content/uploads/2017/05/FeaturedImage-Android-Kotlin-Development-Engineering-SocialCops-Blog.png)
+
 - I am an Android developer
 
 - Kotlin already on Android
@@ -79,6 +81,8 @@ Utiliser des bibliothèques connues
 ---
 
 # Google Cloud Platform
+
+![left fit](https://www.silicon.it/wp-content/uploads/2017/06/Google-Cloud-Platform.png)
 
 - Java 8
 
@@ -203,7 +207,7 @@ fun Application.main() {
 
 # That's it!
 
-TODO Image fly to the moon?
+![](https://www.mediaan.com/wp-content/uploads/2017/01/launch17.jpg)
 
 ```bash
 ./gradlew appengineRun
@@ -232,6 +236,8 @@ gcloud app create
 ```
 
 ---
+
+![left 30%](http://google.tieto.com/images/services/google-cloud-platform/CloudStorage_500px-865820cf.png)
 
 # A database?
 
@@ -319,7 +325,9 @@ post("/events") {
 # What we have?
 
 1. Backend in Kt on Appengine (GCP) with Ktor
-1. DB (Datastore) enhanced with Kt extensions
+2. DB (Datastore) enhanced with Kt extensions
+
+![inline 50%](https://camo.githubusercontent.com/ff8d543d1bc5951292d40f105ca2a96d6eeee1fa/687474703a2f2f6b746f722e696f2f6173736574732f696d616765732f6b746f725f6c6f676f2e706e67)
 
 ---
 
@@ -339,6 +347,8 @@ TODO overview on performance over Java? And cost of Appengine?
 - Serverless (easier)
 
 - Or Gradle plugin
+
+![inline 30%](https://lever-client-logos.s3.amazonaws.com/3a11c9ce-98fc-4715-9bdb-c4c4d924ef7d-1508186423731.png)
 
 ---
 
@@ -420,9 +430,9 @@ class SaveEvent : RequestHandler<Map<String, Any>, Unit> {
 [.code-highlight: 9]
 
 ```bash
-$ ./gradlew shadowJar
+./gradlew shadowJar
 
-$ ./gradlew deploy
+./gradlew deploy
 ```
 
 ---
@@ -430,6 +440,8 @@ $ ./gradlew deploy
 # A database?
 
 ## Let's try __Dynamo__
+
+![left 40%](https://cdn-images-1.medium.com/max/1200/1*qp3u7D_FkGlFeBPUx7hcLg.png)
 
 ---
 
@@ -476,14 +488,18 @@ class SaveEvent : RequestHandler<Map<String, Any>, Unit> {
 
 ---
 
-# Extension :heart:
+# Extension ❤️
 
 ```kotlin
 private fun Event.build(): Item =
-  Item().withPrimaryKey("title", title).withString("description", description)
+  Item().withPrimaryKey("title", title)
+  .withString("description", description)
 ```
 
 ---
+
+![](https://fbrazeal.files.wordpress.com/2016/06/lambda.png?w=1200)
+![](https://cdn-images-1.medium.com/max/1200/1*qp3u7D_FkGlFeBPUx7hcLg.png)
 
 # What we have done?
 
@@ -491,6 +507,8 @@ private fun Event.build(): Item =
 - DynamoDB + Kotlin extension
 
 ---
+
+![left 60%](https://adatumno.azureedge.net/wp-content/uploads/2018/07/functions-logo.png?2aa027)
 
 # What next?
 
@@ -527,26 +545,53 @@ private fun Event.build(): Item =
                 └── function.json
 ```
 
+^host.json : config globale toutes functions, v2, liste les functions projet
+local.settings.json : config de l'app (runtime, nom du projet)
+
 ---
 
 # Dist
 
 ```
-├── build
-│   ├── azure-functions
-│   │   ├── saveEvent
-│   │   │   └── function.json
-│   │   ├── function.jar
-│   │   ├── host.json
-│   │   └── local.settings.json
+└── build
+    └── azure-functions
+        ├── saveEvent
+        │   └── function.json
+        ├── function.jar
+        └── host.json
 ```
+
+^jar créé avec shadowJar
+⚠️ respecter l'arborescence des functions
+Faire un zip puis utiliser az pour déployer
+Pas facile, nécessite de créer la function avant
+
 
 ---
 
 # Configuration
 
 ```json
+{
+  "scriptFile": "../function.jar",
+  "entryPoint": "FunctionKt.saveEvent",
+  "bindings": [
+    {
+      "type": "httpTrigger",
+      "name": "data",
+      "direction": "in",
+      "dataType": "string",
+      "authLevel": "anonymous",
+      "methods": [ "post" ]
+    }
+  ]
+}
 ```
+
+^function.jar : créé avec shadowJar
+FunctionKt car fichier Function.kt
+Function saveEvent dans le fichier (sans class)
+Config
 
 ---
 
@@ -566,7 +611,9 @@ task run(type: Exec) {
   commandLine 'func', 'host', 'start'
 }
 task deploy(type: Exec) {
-  commandLine 'az', 'functionapp', 'deployment', 'source', 'config-zip', '-g', "${rootProject.name}-group", '-n', "${rootProject.name}", '--src', "${buildDir}/${rootProject.name}.zip"
+  commandLine 'az', 'functionapp', 'deployment', 'source', 'config-zip', 
+  '-g', "${rootProject.name}-group", '-n', "${rootProject.name}", 
+  '--src', "${buildDir}/${rootProject.name}.zip"
 }
 ```
 
@@ -587,11 +634,17 @@ fun saveEvent(data: String, context: ExecutionContext): String {
 }
 ```
 
+^Code Moshi (parsing JSON)
+
 ---
+
+![left 70%](https://azure.microsoft.com/svghandler/cosmos-db?width=1200&height=630)
 
 # A database?
 
 ## Let's try __CosmosDB__ 🌎
+
+^DB bdd multi-modèle distribuée, SQL, MongoDB, Cassandra, etc.
 
 ---
 
@@ -606,8 +659,8 @@ val client = DocumentClient("https://kt-azure.documents.azure.com:443/",
 val database: Database = client.queryDatabases("SELECT * FROM root r WHERE r.id='KtAzure'", null)
   .queryIterable.toList()[0]
 
-val collection: DocumentCollection = client.queryCollections(database.selfLink, "SELECT * FROM root r WHERE r.id='Events'", null)
-  .queryIterable.toList()[0]
+val collection: DocumentCollection = client.queryCollections(database.selfLink, 
+"SELECT * FROM root r WHERE r.id='Events'", null).queryIterable.toList()[0]
 
 fun saveEvent(data: String, context: ExecutionContext): String {
   val eventDocument = Document(data)
@@ -623,17 +676,22 @@ fun saveEvent(data: String, context: ExecutionContext): String {
 - CosmosDb
 - Gradle 🔥
 
+^Ça a bien fonctionné sauf 
+- Création de la function sur Azure
+- Création de la table et de la collection sur Azure
+
 ---
 
-> Ils ne savaient pas que c’était impossible, alors ils l’ont fait.
+> They did not know it was impossible so they did it.
 -- Mark Twain
 
 ---
 
-# Thank you!
+![](https://xebicon.fr/wp-content/uploads/2018/06/Xebicon18-brongniart-tech4exec.jpg)
 
-## Take away
+# [fit] __Thank you!__
 
 - cloud.google.com/kotlin/
 - github.com/xebia-france/xebicon-kotlin-cloud
 - xebicon.fr
+- le-mois-du-kotlin.xebia.fr
