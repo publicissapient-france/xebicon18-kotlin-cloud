@@ -1,4 +1,4 @@
-theme: Fira, 6
+theme: XebiCon18
 slidenumbers: true
 
 ![](https://xebicon.fr/wp-content/uploads/2018/06/Xebicon18-brongniart-tech4exec.jpg)
@@ -6,6 +6,8 @@ slidenumbers: true
 ## XebiCon'__18__
 
 # Kotlin in your __Cloud__
+
+^ B
 
 ---
 
@@ -20,6 +22,8 @@ Benjamin Lacroix
 Fullstack Developer
 & Manager
 
+^ B
+
 ---
 
 # Who we are?
@@ -31,6 +35,8 @@ Paul-Guillaume
 Fullstack Developer
 & Manager
 
+^ PG
+
 ---
 
 # Agenda
@@ -39,6 +45,8 @@ Fullstack Developer
 - Appengine on GCP
 - Lambda on AWS
 - Function on Azure
+
+^ B
 
 ---
 
@@ -52,6 +60,8 @@ thinking of switching to Kotlin
 
 ^ Partager du code
 Utiliser des bibliothèques connues
+
+^ B
 
 ---
 
@@ -67,7 +77,7 @@ Utiliser des bibliothèques connues
 
 - How to go From Android to backend?
 
-- Let's try GCP ☁️
+^ B
 
 ---
 
@@ -83,6 +93,8 @@ Utiliser des bibliothèques connues
 
 - version 1.0 released in 2016
 
+^PG
+
 ---
 
 # Why Kotlin is cool?
@@ -94,6 +106,8 @@ Utiliser des bibliothèques connues
 - Easier than Scala
 
 - Concise, safe and interoperable
+
+^ PG
 
 ---
 
@@ -115,9 +129,14 @@ thirdProperty?.name // OK
 ```kotlin
 thirdProperty?.something ?: "else value"
 ```
+
+^PG
+
 ---
 
 # Concise
+
+^PG
 
 ---
 
@@ -133,10 +152,14 @@ thirdProperty?.something ?: "else value"
 
 - Ktor
 
+^ B
+
 ---
 
-> __Easy to use, fun and asynchronous.__
--- ktor.io
+##  __Easy to use, fun and asynchronous__
+####  *- ktor.io*
+
+^ B
 
 ---
 
@@ -146,6 +169,8 @@ thirdProperty?.something ?: "else value"
 - GCloud App Engine Java
 - GCloud Github repository for 
 Ktor and AppEngine
+
+^ B
 
 ---
 
@@ -181,6 +206,8 @@ dependencies {
 }
 ```
 
+^ B
+
 ---
 
 # application.conf
@@ -192,6 +219,8 @@ ktor {
   }
 }
 ```
+
+^ B
 
 ---
 
@@ -221,6 +250,8 @@ val events = listOf(
 )
 ```
 
+^ B
+
 ---
 
 # App.kt
@@ -243,6 +274,8 @@ fun Application.main() {
   }
 }
 ```
+
+^ B
 
 ---
 
@@ -270,6 +303,8 @@ gcloud app create
 
 ^./gradlew appengineRun (local)
 
+^ B
+
 ---
 
 ![left 30%](http://google.tieto.com/images/services/google-cloud-platform/CloudStorage_500px-865820cf.png)
@@ -277,6 +312,8 @@ gcloud app create
 # A database?
 
 ## Let's try __Datastore__!
+
+^ B
 
 ---
 
@@ -302,6 +339,8 @@ FullEntity<IncompleteKey> entity = FullEntity.newBuilder(key)
 
 service.add(entity);
 ```
+
+^ B
 
 ---
 
@@ -329,6 +368,8 @@ post("/events") {
 }
 ```
 
+^ B
+
 ---
 
 # Kt can do more?
@@ -355,6 +396,8 @@ post("/events") {
 }
 ```
 
+^ B
+
 ---
 
 # What we have?
@@ -364,11 +407,7 @@ post("/events") {
 
 ![inline 50%](https://camo.githubusercontent.com/ff8d543d1bc5951292d40f105ca2a96d6eeee1fa/687474703a2f2f6b746f722e696f2f6173736574732f696d616765732f6b746f725f6c6f676f2e706e67)
 
----
-
-# Performance and cost
-
-TODO overview on performance over Java? And cost of Appengine?
+^ B
 
 ---
 
@@ -377,6 +416,8 @@ TODO overview on performance over Java? And cost of Appengine?
 ## __Does it behave nicely on__
 ## __AWS Lambda?__
 
+^ PG
+
 ---
 
 - Serverless (easier)
@@ -384,12 +425,14 @@ TODO overview on performance over Java? And cost of Appengine?
 - Or Gradle plugin
 
 ![inline 30%](https://lever-client-logos.s3.amazonaws.com/3a11c9ce-98fc-4715-9bdb-c4c4d924ef7d-1508186423731.png)
-
+^ PG
 ---
 
 - Java 8
 
 - Need a fat | uber jar
+
+^ PG
 
 ---
 
@@ -420,6 +463,8 @@ task deploy(type: Exec, dependsOn: 'shadowJar') {
 }
 ```
 
+^ PG
+
 ---
 
 # serverless.yml
@@ -441,6 +486,8 @@ functions:
         method: post
 ```
 
+^ PG
+
 --- 
 
 # SaveEvent.kt
@@ -453,6 +500,8 @@ class SaveEvent : RequestHandler<Map<String, Any>, Unit> {
   }
 }
 ```
+
+^ PG
 
 ---
 
@@ -470,6 +519,8 @@ class SaveEvent : RequestHandler<Map<String, Any>, Unit> {
 ./gradlew deploy
 ```
 
+^ PG
+
 ---
 
 # A database?
@@ -477,6 +528,8 @@ class SaveEvent : RequestHandler<Map<String, Any>, Unit> {
 ## Let's try __Dynamo__
 
 ![left 40%](https://cdn-images-1.medium.com/max/1200/1*qp3u7D_FkGlFeBPUx7hcLg.png)
+
+^ PG
 
 ---
 
@@ -504,6 +557,8 @@ functions:
         method: post
 ```
 
+^ PG
+
 ---
 
 # SaveEvent.kt
@@ -521,6 +576,8 @@ class SaveEvent : RequestHandler<Map<String, Any>, Unit> {
 }
 ```
 
+^ PG
+
 ---
 
 # Extension ❤️
@@ -530,6 +587,8 @@ private fun Event.build(): Item =
   Item().withPrimaryKey("title", title)
   .withString("description", description)
 ```
+
+^ PG
 
 ---
 
@@ -541,6 +600,8 @@ private fun Event.build(): Item =
 - AWS Lambda with Serverless
 - DynamoDB + Kotlin extension
 
+^ PG
+
 ---
 
 ![left 60%](https://adatumno.azureedge.net/wp-content/uploads/2018/07/functions-logo.png?2aa027)
@@ -548,6 +609,8 @@ private fun Event.build(): Item =
 # What next?
 
 ## Can I do Kotlin on __Azure__?
+
+^ B
 
 ---
 
@@ -562,6 +625,8 @@ private fun Event.build(): Item =
 - Actually in preview :umbrella: (Java)
 - Fat | uber jar as Lambda
 - Not supported yet by Serverless (Node)
+
+^ B
 
 ---
 
@@ -583,6 +648,8 @@ private fun Event.build(): Item =
 ^host.json : config globale toutes functions, v2, liste les functions projet
 local.settings.json : config de l'app (runtime, nom du projet)
 
+^ B
+
 ---
 
 # Dist
@@ -601,6 +668,7 @@ local.settings.json : config de l'app (runtime, nom du projet)
 Faire un zip puis utiliser az pour déployer
 Pas facile, nécessite de créer la function avant
 
+^ B
 
 ---
 
@@ -628,6 +696,8 @@ FunctionKt car fichier Function.kt
 Function saveEvent dans le fichier (sans class)
 Config
 
+^ B
+
 ---
 
 # Build
@@ -652,6 +722,8 @@ task deploy(type: Exec) {
 }
 ```
 
+^ B
+
 ---
 
 # SaveEvent.kt
@@ -671,6 +743,8 @@ fun saveEvent(data: String, context: ExecutionContext): String {
 
 ^Code Moshi (parsing JSON)
 
+^ B
+
 ---
 
 ![left 70%](https://azure.microsoft.com/svghandler/cosmos-db?width=1200&height=630)
@@ -680,6 +754,8 @@ fun saveEvent(data: String, context: ExecutionContext): String {
 ## Let's try __CosmosDB__ 🌎
 
 ^DB bdd multi-modèle distribuée, SQL, MongoDB, Cassandra, etc.
+
+^ B
 
 ---
 
@@ -704,6 +780,8 @@ fun saveEvent(data: String, context: ExecutionContext): String {
 }
 ```
 
+^ B
+
 ---
 ![40%](https://adatumno.azureedge.net/wp-content/uploads/2018/07/functions-logo.png?2aa027)
 ![50%](https://azure.microsoft.com/svghandler/cosmos-db?width=1200&height=630)
@@ -717,10 +795,23 @@ fun saveEvent(data: String, context: ExecutionContext): String {
 - Création de la function sur Azure
 - Création de la table et de la collection sur Azure
 
+^ B
+
 ---
 
-> __They did not know it was impossible so they did it.__
--- Mark Twain
+##  __They did not know it was impossible so they did it.__
+####  *- Mark Twain*
+
+^ PG
+
+---
+
+# Take away
+
+- cloud.google.com/kotlin/
+- github.com/xebia-france/xebicon-kotlin-cloud
+- xebicon.fr
+- le-mois-du-kotlin.xebia.fr
 
 ---
 
@@ -728,7 +819,4 @@ fun saveEvent(data: String, context: ExecutionContext): String {
 
 # [fit] __Thank you!__
 
-- cloud.google.com/kotlin/
-- github.com/xebia-france/xebicon-kotlin-cloud
-- xebicon.fr
-- le-mois-du-kotlin.xebia.fr
+^ PG
