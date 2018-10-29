@@ -85,6 +85,41 @@ Utiliser des bibliothèques connues
 
 ---
 
+# Why Kotlin is cool?
+
+- It comes from industry, not academia. It solves problems faced by working programmers today.
+
+- It enforces no particular philosophy of programming
+
+- More elegant than Java
+
+- Easier than Scala
+
+- Java libraries can be used in Kotlin
+
+---
+
+# Null Safety
+
+- Optional
+
+---
+
+# Example.kt
+
+```kotlin
+val property: User = User("Paul", "Smith") // OK
+
+val otherProperty: User = null // Not OK
+
+val thirdProperty: User? = null // OK
+thirdProperty.name // Not OK
+thirdProperty?.name // OK
+
+```
+
+---
+
 # Google Cloud Platform
 
 ![left fit](https://www.silicon.it/wp-content/uploads/2017/06/Google-Cloud-Platform.png)
