@@ -9,13 +9,16 @@ Check [kotlin-cloud.md](kotlin-cloud.md) based on [Deckset](https://www.deckset.
 ## Roadmap
 
 - [x] Introduction
-- [ ] Speakers
+- [ ] Speakers (@PG)
 - [x] Agenda
-- [ ] Kotlin?
-- [ ] Why kt is cool
+- [ ] Kotlin fundations (@Ben)
+- [ ] Merge Why? and Why Kotlin is cool? (@PG)
+- [ ] Concise: add example (&PG)
 - [x] Kt @ AppEngine
 - [x] Why kt is cool
 - [x] Kt @ AWS Lambda
-- [ ] Why kt is cool
+- [ ] Performance (@PG)
 - [x] Kt @ Azure Function
 - [x] Take away
+- [ ] Take away: Kotlin as Java works with Docker (@Ben)
+- [ ] Take away: Kotlin.js Firebase function (example) (@Ben)
