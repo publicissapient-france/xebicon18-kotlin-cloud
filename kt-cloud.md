@@ -87,36 +87,37 @@ Utiliser des bibliothèques connues
 
 # Why Kotlin is cool?
 
-- It comes from industry, not academia. It solves problems faced by working programmers today.
-
 - It enforces no particular philosophy of programming
 
 - More elegant than Java
 
 - Easier than Scala
 
-- Java libraries can be used in Kotlin
+- Concise, safe and interoperable
 
 ---
 
 # Null Safety
 
-- Optional
-
----
-
-# Example.kt
-
 ```kotlin
 val property: User = User("Paul", "Smith") // OK
-
-val otherProperty: User = null // Not OK
-
+val secondProperty: User = null // Not OK
 val thirdProperty: User? = null // OK
+
+// Unwrapping null values
+
 thirdProperty.name // Not OK
 thirdProperty?.name // OK
-
 ```
+
+# Elvis Operator
+
+```kotlin
+thirdProperty?.something ?: "else value"
+```
+---
+
+# Concise
 
 ---
 
