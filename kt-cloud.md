@@ -425,7 +425,9 @@ post("/events") {
 - Or Gradle plugin
 
 ![inline 30%](https://lever-client-logos.s3.amazonaws.com/3a11c9ce-98fc-4715-9bdb-c4c4d924ef7d-1508186423731.png)
+
 ^ PG
+
 ---
 
 - Java 8
