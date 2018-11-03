@@ -28,7 +28,7 @@ Fullstack Developer
 
 # Who we are?
 
-![left filtered](blacroix.jpg)
+![left filtered](pg.jpg)
 
 Paul-Guillaume
 
@@ -105,7 +105,7 @@ Utiliser des bibliothèques connues
 
 - Easier than Scala
 
-- Concise, safe and interoperable
+- Safe, concise and interoperable
 
 ^ PG
 
@@ -135,6 +135,92 @@ thirdProperty?.something ?: "else value"
 ---
 
 # Concise
+
+^PG
+
+---
+
+# User.java 1/2
+
+```java
+public class User {
+  private String firstname;
+  private String lastname;
+  private Date birthdate;
+  // ...
+  
+  public String getFirstname() { return this.firstname; }
+  public String setFirstname(String firstname) { this.firstname = firstname; }
+  // ...
+}
+```
+
+---
+
+# User.java 2/2
+
+```java
+public class User {
+  // ...
+    
+  @Override
+  public boolean equals(Object o) {
+      if (this == o) return true;
+      if (o == null || getClass() != o.getClass()) return false;
+      User user = (User) o;
+      return Objects.equals(firstname, user.firstname) && Objects.equals(lastname, user.lastname) && Objects.equals(birthdate, user.birthdate);
+  }
+
+  @Override
+  public int hashCode() { return Objects.hash(firstname, lastname, birthdate); }
+
+  @Override
+  public String toString() {
+      return "User{" +
+          "firstname='" + firstname + '\'' +
+          ", lastname='" + lastname + '\'' +
+          ", birthdate=" + birthdate +
+          '}';
+  }
+}
+```
+
+---
+
+# User.kt
+
+```kotlin
+data class User(
+  val firstname: String,
+  val lastname: String,
+  val birthdate: Date
+)
+```
+
+That's all...
+
+---
+
+# Immutability
+
+```kotlin
+var variable: String = "I am mutable..."
+variable = "Am I really mutable?" // OK
+
+val immutableValue: String = "I am immutable!!!"
+immutableValue = "Could I have another value?" // NOT OK!!! 
+```
+
+^PG
+
+---
+
+# Many other things
+
+- coroutines
+- default value in parameters
+- easier syntax
+- etc.
 
 ^PG
 
