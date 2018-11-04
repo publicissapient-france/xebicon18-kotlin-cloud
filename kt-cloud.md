@@ -721,6 +721,20 @@ private fun Event.build(): Item =
 
 ---
 
+![right 50%](https://twhyderabad.github.io/xtremetesting/static/media/performance-testing.5b7a5cb2.png)
+
+# Serverless & JVM? Really?
+
+- Cold Start (~1s)
+
+- Approximately same perf as Go
+
+- Consistent performance of compiled vs dynamic (JVM, .NET, Go Vs JS & Python)
+
+- Works well without framework
+
+---
+
 ![left 60%](https://adatumno.azureedge.net/wp-content/uploads/2018/07/functions-logo.png?2aa027)
 
 # What next?
