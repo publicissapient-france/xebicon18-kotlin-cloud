@@ -76,11 +76,13 @@ Utiliser des bibliothèques connues
 
 - We are Android and backend developers
 
+- It enforces no particular philosophy of programming
+
 - Kotlin is already on Android
 
-- Kotlin is better than Java ✨
+- Kotlin is more elegant than Java and easier than Scala ✨
 
-- How to go From Android to backend?
+- Safe, concise and interoperable
 
 ^ B
 
@@ -102,21 +104,14 @@ Utiliser des bibliothèques connues
 
 ---
 
-# Why Kotlin is cool?
-
-- It enforces no particular philosophy of programming
-
-- More elegant than Java
-
-- Easier than Scala
-
-- Safe, concise and interoperable
-
-^ PG
-
----
-
 # Null Safety
+
+[.code-highlight: none]
+[.code-highlight: 1]
+[.code-highlight: 2]
+[.code-highlight: 3]
+[.code-highlight: 3, 7]
+[.code-highlight: 3, 8]
 
 ```kotlin
 val property: User = User("Paul", "Smith") // OK
@@ -130,6 +125,9 @@ thirdProperty?.name // OK
 ```
 
 # Elvis Operator
+
+[.code-highlight: none]
+[.code-highlight: 1]
 
 ```kotlin
 thirdProperty?.something ?: "else value"
@@ -146,6 +144,11 @@ thirdProperty?.something ?: "else value"
 ---
 
 # User.java 1/2
+
+[.code-highlight: none]
+[.code-highlight: 1, 10]
+[.code-highlight: 1-5, 10]
+[.code-highlight: 1, 7-9, 10]
 
 ```java
 public class User {
@@ -164,9 +167,12 @@ public class User {
 
 # User.java 2/2
 
+[.code-highlight: 1-9, 22]
+[.code-highlight: 1, 11-12, 22]
+[.code-highlight: 1, 14-21, 22]
+
 ```java
-public class User {
-  
+public class User {  
   @Override
   public boolean equals(Object o) {
       if (this == o) return true;
@@ -207,6 +213,12 @@ That's all... 💪
 ---
 
 # Immutability
+
+[.code-highlight: none]
+[.code-highlight: 1]
+[.code-highlight: 1-2]
+[.code-highlight: 4]
+[.code-highlight: 4-5]
 
 ```kotlin
 var variable: String = "I am mutable..."
