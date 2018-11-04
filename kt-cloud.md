@@ -374,6 +374,7 @@ fun Application.main() {
 [.code-highlight: 3]
 [.code-highlight: 5]
 [.code-highlight: 7]
+[.code-highlight: 9]
 
 ```bash
 gcloud init
@@ -399,7 +400,9 @@ gcloud app create
 
 ## Let's try __Datastore__!
 
-^ B
+^ BDD NoSQL
+ACID, SQL, index
+B
 
 ---
 
@@ -436,6 +439,7 @@ service.add(entity);
 [.code-highlight: 1]
 [.code-highlight: 2]
 [.code-highlight: 3]
+[.code-highlight: 5-6]
 [.code-highlight: 7-9]
 [.code-highlight: 11]
 
@@ -450,7 +454,7 @@ post("/events") {
     .set("title", event.title)
     .build()
 
-  service.add(event.build(service))
+  service.add(dsEvent)
 }
 ```
 
@@ -598,8 +602,6 @@ class SaveEvent : RequestHandler<Map<String, Any>, Unit> {
 [.code-highlight: none]
 [.code-highlight: 1]
 [.code-highlight: 3]
-[.code-highlight: 5-7]
-[.code-highlight: 9]
 
 ```bash
 ./gradlew shadowJar
@@ -711,14 +713,24 @@ private fun Event.build(): Item =
 - No `Gradle` plugin yet :cry:
 - Only `Maven`
 - Actually in preview :umbrella: (Java)
-- Fat | uber jar as Lambda
+- Fat | Uber jar as Lambda
 - Not supported yet by Serverless (Node)
 
-^ B
+^
+Pré-requis
+CLI MacOS (Brew) 
+B
 
 ---
 
 # Structure
+
+[.code-highlight: none]
+[.code-highlight: 1]
+[.code-highlight: 2]
+[.code-highlight: 3]
+[.code-highlight: 4-7]
+[.code-highlight: 4-5, 8-10]
 
 ```
 ├── host.json
@@ -742,6 +754,11 @@ local.settings.json : config de l'app (runtime, nom du projet)
 
 # Dist
 
+[.code-highlight: none]
+[.code-highlight: 3-4]
+[.code-highlight: 5]
+[.code-highlight: 6]
+
 ```
 └── build
     └── azure-functions
@@ -760,7 +777,12 @@ Pas facile, nécessite de créer la function avant
 
 ---
 
-# Configuration
+# function.json
+
+[.code-highlight: none]
+[.code-highlight: 2]
+[.code-highlight: 3]
+[.code-highlight: 4-12]
 
 ```json
 {
@@ -783,6 +805,7 @@ Pas facile, nécessite de créer la function avant
 FunctionKt car fichier Function.kt
 Function saveEvent dans le fichier (sans class)
 Config
+bindings>name : nom du paramètre de la fonction
 
 ^ B
 
@@ -790,19 +813,21 @@ Config
 
 # Build
 
-^ Deps fat jar = Lambda
-Plugin Kotlin + Shadow
-Jar, copie conf + host.json
-CLI Azure function
+[.code-highlight: none]
+[.code-highlight: 1-3]
+[.code-highlight: 5-8]
+[.code-highlight: 10-14]
 
 ```gradle
 dependencies {
-  compile "com.microsoft.azure.functions:azure-functions-java-library:$azure_function_version"
+  compile "...:azure-functions-java-library:$azure_function_version"
 }
+
 task run(type: Exec) {
   workingDir $buildDir/azure-functions/
   commandLine 'func', 'host', 'start'
 }
+
 task deploy(type: Exec) {
   commandLine 'az', 'functionapp', 'deployment', 'source', 'config-zip', 
   '-g', "${rootProject.name}-group", '-n', "${rootProject.name}", 
@@ -810,11 +835,20 @@ task deploy(type: Exec) {
 }
 ```
 
-^ B
+^ Deps fat jar = Lambda
+Plugin Kotlin + Shadow
+Jar, copie conf + host.json
+CLI Azure function
+B
 
 ---
 
 # SaveEvent.kt
+
+[.code-highlight: none]
+[.code-highlight: 1-3]
+[.code-highlight: 5]
+[.code-highlight: 7-10]
 
 ```kotlin
 val moshi: Moshi = Moshi.Builder()
@@ -849,6 +883,12 @@ fun saveEvent(data: String, context: ExecutionContext): String {
 
 # Function.kt
 
+[.code-highlight: none]
+[.code-highlight: 1-4]
+[.code-highlight: 6-7]
+[.code-highlight: 9-10]
+[.code-highlight: 12-16]
+
 ```kotlin
 val client = DocumentClient("https://kt-azure.documents.azure.com:443/",
   KEY,
@@ -869,6 +909,10 @@ fun saveEvent(data: String, context: ExecutionContext): String {
 ```
 
 ^ B
+Connexion à la DB (clé secrete)
+Query DB
+Query Collection
+Créer un document sur un collection (JSON directement)
 
 ---
 ![40%](https://adatumno.azureedge.net/wp-content/uploads/2018/07/functions-logo.png?2aa027)
@@ -896,10 +940,29 @@ fun saveEvent(data: String, context: ExecutionContext): String {
 
 # Take away
 
+![60%](https://puppet.com/sites/default/files/2016-03/docker-logo-lg.png)
+![60%](https://i1.wp.com/www.martinmajewski.net/wordpress/wp-content/uploads/2018/03/KotlinNativeOnMacLogo.png?fit=600%2C600&ssl=1)
+
+- Kotlin works with **Docker** using:
+Ktor
+Spring boot
+Javalin...
+- Kotlin can compile to **native**:
+Run on iOS 📱
+
+^ PG
+
+---
+
+# Take away
+
 - cloud.google.com/kotlin/
 - github.com/xebia-france/xebicon-kotlin-cloud
 - xebicon.fr
 - le-mois-du-kotlin.xebia.fr
+(Kotlin ❤️ JavaScript)
+
+^ PG
 
 ---
 
