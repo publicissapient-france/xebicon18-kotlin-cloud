@@ -17,7 +17,7 @@ slidenumbers: true
 
 Benjamin Lacroix
 
-@benjlacroix
+**@benjlacroix**
 
 Fullstack Developer
 & Manager
@@ -40,11 +40,16 @@ Fullstack Developer
 ---
 
 # Agenda
+![10%](https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Kotlin-logo.svg/1200px-Kotlin-logo.svg.png)
+
+![45%](https://www.silicon.it/wp-content/uploads/2017/06/Google-Cloud-Platform.png)
+![13%](https://fbrazeal.files.wordpress.com/2016/06/lambda.png?w=1200)
+![25%](https://adatumno.azureedge.net/wp-content/uploads/2018/07/functions-logo.png?2aa027)
 
 - Kotlin?
-- Appengine on GCP
-- Lambda on AWS
-- Function on Azure
+- Appengine on **GCP**
+- Lambda on **AWS**
+- Function on **Azure**
 
 ^ B
 
@@ -52,10 +57,10 @@ Fullstack Developer
 
 # Whose for?
 
-- Android developer 
+- **Android** developer 
 wanting to build backend apps
 
-- Backend developer
+- **Backend** developer
 thinking of switching to Kotlin
 
 ^ Partager du code
@@ -161,16 +166,16 @@ public class User {
 
 ```java
 public class User {
-  // ...
-    
+  
   @Override
   public boolean equals(Object o) {
       if (this == o) return true;
       if (o == null || getClass() != o.getClass()) return false;
       User user = (User) o;
-      return Objects.equals(firstname, user.firstname) && Objects.equals(lastname, user.lastname) && Objects.equals(birthdate, user.birthdate);
+      return Objects.equals(firstname, user.firstname) && 
+      Objects.equals(lastname, user.lastname) && Objects.equals(birthdate, user.birthdate);
   }
-
+  
   @Override
   public int hashCode() { return Objects.hash(firstname, lastname, birthdate); }
 
@@ -197,7 +202,7 @@ data class User(
 )
 ```
 
-That's all...
+That's all... 💪
 
 ---
 
@@ -223,6 +228,16 @@ immutableValue = "Could I have another value?" // NOT OK!!!
 - etc.
 
 ^PG
+
+---
+
+### **Mission is to protect, promote and advance the development of the Kotlin programming language.**
+
+#### - _Kotlin fundation ( Google + Jetbrains )_
+
+^ B
+4th October + Kotlin portal sur GCP
+The Foundation secures Kotlin’s development and distribution as Free Software, meaning that it is able to be freely copied, modified and redistributed, including modifications to the official versions.
 
 ---
 
@@ -969,5 +984,7 @@ Run on iOS 📱
 ![](https://xebicon.fr/wp-content/uploads/2018/06/Xebicon18-brongniart-tech4exec.jpg)
 
 # [fit] __Thank you!__
+
+## XebiCon'**18**
 
 ^ PG
