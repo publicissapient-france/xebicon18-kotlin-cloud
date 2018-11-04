@@ -11,7 +11,7 @@ Check [kotlin-cloud.md](kotlin-cloud.md) based on [Deckset](https://www.deckset.
 - [x] Introduction
 - [x] Speakers (@PG)
 - [x] Agenda
-- [ ] Kotlin fundations (@Ben)
+- [x] Kotlin fundations (@Ben)
 - [x] Merge Why? and Why Kotlin is cool? (@PG)
 - [x] Concise: add example (&PG)
 - [x] Kt @ AppEngine
