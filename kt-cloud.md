@@ -108,8 +108,9 @@ Utiliser des bibliothèques connues
 [.code-highlight: 1]
 [.code-highlight: 2]
 [.code-highlight: 3]
-[.code-highlight: 3, 7]
-[.code-highlight: 3, 8]
+[.code-highlight: 7]
+[.code-highlight: 8]
+[.code-highlight: none]
 
 ```kotlin
 val property: User = User("Paul", "Smith") // OK
@@ -166,7 +167,7 @@ immutableValue = "Could I have another value?" // NOT OK!!!
 [.code-highlight: none]
 [.code-highlight: 1, 10]
 [.code-highlight: 1-5, 10]
-[.code-highlight: 1, 7-9, 10]
+[.code-highlight: 1, 7-8, 10]
 
 ```java
 public class User {
