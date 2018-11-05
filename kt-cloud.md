@@ -135,6 +135,26 @@ thirdProperty?.something ?: "else value"
 
 ---
 
+# Immutability
+
+[.code-highlight: none]
+[.code-highlight: 1]
+[.code-highlight: 1-2]
+[.code-highlight: 4]
+[.code-highlight: 4-5]
+
+```kotlin
+var variable: String = "I am mutable..."
+variable = "Am I really mutable?" // OK
+
+val immutableValue: String = "I am immutable!!!"
+immutableValue = "Could I have another value?" // NOT OK!!! 
+```
+
+^ PG
+
+---
+
 # Concise
 
 ^ PG
@@ -211,26 +231,6 @@ data class User(
 ```
 
 That's all... 💪
-
-^ PG
-
----
-
-# Immutability
-
-[.code-highlight: none]
-[.code-highlight: 1]
-[.code-highlight: 1-2]
-[.code-highlight: 4]
-[.code-highlight: 4-5]
-
-```kotlin
-var variable: String = "I am mutable..."
-variable = "Am I really mutable?" // OK
-
-val immutableValue: String = "I am immutable!!!"
-immutableValue = "Could I have another value?" // NOT OK!!! 
-```
 
 ^ PG
 
