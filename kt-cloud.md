@@ -317,9 +317,9 @@ repositories {
 }
 
 dependencies {
-  compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-  compile "io.ktor:ktor-server-servlet:$ktor_version"
-  compile "io.ktor:ktor-gson:$ktor_version"
+  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+  implementation "io.ktor:ktor-server-servlet:$ktor_version"
+  implementation "io.ktor:ktor-gson:$ktor_version"
   providedCompile "com.google.appengine:appengine:$appengine_version"
 }
 ```
@@ -600,8 +600,8 @@ apply plugin: 'kotlin'
 apply plugin: 'com.github.johnrengelman.shadow'
 
 dependencies {
-  compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-  compile "com.amazonaws:aws-lambda-java-core:$aws_version"
+  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+  implementation "com.amazonaws:aws-lambda-java-core:$aws_version"
 }
 
 task deploy(type: Exec, dependsOn: 'shadowJar') {
@@ -912,7 +912,7 @@ bindings>name : nom du paramètre de la fonction
 
 ```gradle
 dependencies {
-  compile "...:azure-functions-java-library:$azure_function_version"
+  implementation "...:azure-functions-java-library:$azure_function_version"
 }
 
 task run(type: Exec) {
