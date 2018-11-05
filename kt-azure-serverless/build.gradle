@@ -17,10 +17,10 @@ repositories {
 }
 
 dependencies {
-  compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-  compile "com.microsoft.azure.functions:azure-functions-java-library:$azure_function_version"
+  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+  implementation "com.microsoft.azure.functions:azure-functions-java-library:$azure_function_version"
   implementation "com.squareup.moshi:moshi-kotlin:$moshi_version"
-  compile "com.microsoft.azure:azure-documentdb:$cosmodb_version"
+  implementation "com.microsoft.azure:azure-documentdb:$cosmodb_version"
 
 }
 

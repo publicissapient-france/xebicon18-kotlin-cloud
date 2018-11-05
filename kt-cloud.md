@@ -19,8 +19,7 @@ Benjamin Lacroix
 
 **@benjlacroix**
 
-Fullstack Developer
-& Manager
+Android developer
 
 ^ B
 
@@ -32,8 +31,7 @@ Fullstack Developer
 
 Paul-Guillaume
 
-Fullstack Developer
-& Manager
+Backend developer
 
 ^ PG
 
@@ -806,7 +804,7 @@ fun Event.save(): PutItemOutcome? =
 
 - No `Gradle` plugin yet :cry:
 - Only `Maven`
-- Actually in preview :umbrella: (Java)
+- Currently in preview :umbrella: (Java)
 - Fat | Uber jar as Lambda
 - Not supported yet by Serverless (Node)
 
