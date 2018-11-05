@@ -20,7 +20,7 @@ package:
 
 functions:
   saveEvent:
-    handler: SaveEvent
+    handler: fr.xebicon.SaveEvent
     memorySize: 1024
     events:
     - http:

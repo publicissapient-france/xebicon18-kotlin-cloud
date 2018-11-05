@@ -1,6 +1,6 @@
 {
   "scriptFile": "../function.jar",
-  "entryPoint": "FunctionKt.saveEvent",
+  "entryPoint": "fr.xebicon.FunctionKt.saveEvent",
   "bindings": [
     {
       "type": "httpTrigger",
