@@ -1,7 +1,6 @@
 package fr.xebicon
 
-import com.google.cloud.datastore.DatastoreOptions
-import fr.xebicon.extension.build
+import fr.xebicon.extension.save
 import io.ktor.application.Application
 import io.ktor.application.call
 import io.ktor.application.install
@@ -42,7 +41,6 @@ fun Application.main() {
     }
     post("/events") {
       val event = call.receive<Event>()
-      val service = DatastoreOptions.getDefaultInstance().service
 
 //      val keyFactory = service.newKeyFactory()
 //      val key = keyFactory.setKind("events").newKey()
@@ -50,7 +48,7 @@ fun Application.main() {
 //        .set("title", event.title)
 //        .build()
 
-      service.add(event.build(service))
+      event.save()
 
       call.respond("OK")
     }
