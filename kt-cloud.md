@@ -163,6 +163,8 @@ public class User {
 }
 ```
 
+^ PG
+
 ---
 
 # User.java 2/2
@@ -196,6 +198,8 @@ public class User {
 }
 ```
 
+^ PG
+
 ---
 
 # User.kt
@@ -209,6 +213,8 @@ data class User(
 ```
 
 That's all... 💪
+
+^ PG
 
 ---
 
@@ -739,6 +745,8 @@ private fun Event.build(): Item =
 - Consistent performance of compiled vs dynamic (JVM, .NET, Go Vs JS & Python)
 
 - Works well without framework
+
+^ PG
 
 ---
 
