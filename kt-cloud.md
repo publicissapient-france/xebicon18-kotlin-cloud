@@ -550,6 +550,7 @@ post("/events") {
 ![inline 30%](https://lever-client-logos.s3.amazonaws.com/3a11c9ce-98fc-4715-9bdb-c4c4d924ef7d-1508186423731.png)
 
 ^ PG
+NPM pour l'install
 
 ---
 
@@ -589,6 +590,10 @@ task deploy(type: Exec, dependsOn: 'shadowJar') {
 ```
 
 ^ PG
+DEPS DE BUILD
+PLUGINS
+DEPS DE RUNTIME
+AJOUT D'UNE TACHE
 
 ---
 
@@ -681,6 +686,7 @@ functions:
 ```
 
 ^ PG
+AJOUT DU ROLE IAM POUR INSERER DANS DYNAMO
 
 ---
 
