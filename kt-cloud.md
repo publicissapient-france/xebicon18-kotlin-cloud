@@ -497,26 +497,47 @@ post("/events") {
 ---
 
 # Kt can do more?
-
 ## __Extensions ❤️__
 
 [.code-highlight: none]
 [.code-highlight: 1]
-[.code-highlight: 3-6]
-[.code-highlight: 8-12]
+[.code-highlight: 3-4]
+[.code-highlight: 6-12]
 
 ```kotlin
-import fr.xebicon.extension.build
+package fr.xebicon.extension
 
-fun Event.build(service: Datastore): FullEntity<IncompleteKey> {
+private val service: Datastore = 
+  DatastoreOptions.getDefaultInstance().service
+
+fun Event.save(): Entity? {
   val key = service.newKeyFactory().setKind("events").newKey()
-  return FullEntity.newBuilder(key).set("title", title).build()
+  val entity = FullEntity.newBuilder(key)
+    .set("title", title)
+    .build()
+  return service.add(entity)
 }
+```
 
+^ B
+
+---
+
+Kt can do more?
+## __Extensions ❤️__
+
+[.code-highlight: none]
+[.code-highlight: 1]
+[.code-highlight: 5]
+[.code-highlight: 3-7]
+
+```kotlin
+import fr.xebicon.extension.save
+// ...
 post("/events") {
   val event = call.receive<Event>()
-  val service = DatastoreOptions.getDefaultInstance().service
-  service.add(event.build(service))
+  event.save()
+  call.respond("OK")
 }
 ```
 
@@ -693,22 +714,19 @@ AJOUT DU ROLE IAM POUR INSERER DANS DYNAMO
 
 # SaveEvent.kt
 
-[.code-highlight: 1, 10]
-[.code-highlight: 1-2, 10]
-[.code-highlight: 1, 3, 9-10]
-[.code-highlight: 1, 3-4, 9-10]
-[.code-highlight: 1, 3, 5-6, 9-10]
-[.code-highlight: 1, 3, 7-8, 9-10]
+[.code-highlight: 1]
+[.code-highlight: 3, 9]
+[.code-highlight: 3, 9, 4]
+[.code-highlight: 3, 9, 5-8]
 
 ```kotlin
+import fr.xebicon.extension.save
+
 class SaveEvent : RequestHandler<Map<String, Any>, Unit> {
   private val mapper = jacksonObjectMapper()
   override fun handleRequest(input: Map<String, Any>, context: Context) {
     val event = mapper.readValue<Event>(input[BODY] as String)
-    val client = AmazonDynamoDBClientBuilder.standard().build()
-    val db = DynamoDB(client)
-    val table = db.getTable(EVENTS)
-    table.putItem(event.build())
+    event.save()
   }
 }
 ```
@@ -719,10 +737,23 @@ class SaveEvent : RequestHandler<Map<String, Any>, Unit> {
 
 # Extension ❤️
 
+[.code-highlight: 1]
+[.code-highlight: 3]
+[.code-highlight: 4]
+[.code-highlight: 5]
+[.code-highlight: 7-10]
+
 ```kotlin
-private fun Event.build(): Item =
-  Item().withPrimaryKey("title", title)
-  .withString("description", description)
+package fr.xebicon.extension
+
+val client: AmazonDynamoDB = AmazonDynamoDBClientBuilder.standard().build()
+val db = DynamoDB(client)
+val table: Table = db.getTable(EVENTS)
+
+fun Event.save(): PutItemOutcome? =
+  table.putItem(Item()
+    .withPrimaryKey("title", title)
+    .withString("description", description))
 ```
 
 ^ PG
