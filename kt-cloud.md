@@ -680,6 +680,13 @@ functions:
 
 # SaveEvent.kt
 
+[.code-highlight: 1, 10]
+[.code-highlight: 1-2, 10]
+[.code-highlight: 1, 3, 9-10]
+[.code-highlight: 1, 3-4, 9-10]
+[.code-highlight: 1, 3, 5-6, 9-10]
+[.code-highlight: 1, 3, 7-8, 9-10]
+
 ```kotlin
 class SaveEvent : RequestHandler<Map<String, Any>, Unit> {
   private val mapper = jacksonObjectMapper()
