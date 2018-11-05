@@ -98,7 +98,7 @@ Utiliser des bibliothèques connues
 
 - version 1.0 released in 2016
 
-^PG
+^ PG
 
 ---
 
@@ -131,13 +131,13 @@ thirdProperty?.name // OK
 thirdProperty?.something ?: "else value"
 ```
 
-^PG
+^ PG
 
 ---
 
 # Concise
 
-^PG
+^ PG
 
 ---
 
@@ -232,7 +232,7 @@ val immutableValue: String = "I am immutable!!!"
 immutableValue = "Could I have another value?" // NOT OK!!! 
 ```
 
-^PG
+^ PG
 
 ---
 
@@ -243,7 +243,7 @@ immutableValue = "Could I have another value?" // NOT OK!!!
 - easier syntax
 - etc.
 
-^PG
+^ PG
 
 ---
 
