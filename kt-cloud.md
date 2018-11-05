@@ -244,12 +244,14 @@ That's all... 💪
 - etc.
 
 ^ PG
+Passation: JetBrains est le créateur, mais comme vu plus tôt, Kotlin est sur Android et Google le pousse énormément.
+Le travail de ces 2 boites a donné naissance à la... Kotlin Foundation 
 
 ---
 
 ### **Mission is to protect, promote and advance the development of the Kotlin programming language.**
 
-#### - _Kotlin fundation ( Google + Jetbrains )_
+#### - _Kotlin foundation ( Google + Jetbrains )_
 
 ^ B
 4th October + Kotlin portal sur GCP
