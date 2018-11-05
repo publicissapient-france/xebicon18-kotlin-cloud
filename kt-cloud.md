@@ -86,7 +86,7 @@ Utiliser des bibliothèques connues
 
 ---
 
-![30%](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/JetBrains_Logo_2016.svg/1200px-JetBrains_Logo_2016.svg.png)
+![left 30%](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/JetBrains_Logo_2016.svg/1200px-JetBrains_Logo_2016.svg.png)
 
 # What?
 
@@ -545,12 +545,12 @@ post("/events") {
 
 ---
 
+![inline 50%](https://camo.githubusercontent.com/ff8d543d1bc5951292d40f105ca2a96d6eeee1fa/687474703a2f2f6b746f722e696f2f6173736574732f696d616765732f6b746f725f6c6f676f2e706e67)
+
 # What we have?
 
 1. Backend in Kt on Appengine (GCP) with Ktor
 2. DB (Datastore) enhanced with Kt extensions
-
-![inline 50%](https://camo.githubusercontent.com/ff8d543d1bc5951292d40f105ca2a96d6eeee1fa/687474703a2f2f6b746f722e696f2f6173736574732f696d616765732f6b746f725f6c6f676f2e706e67)
 
 ^ B
 
@@ -565,11 +565,11 @@ post("/events") {
 
 ---
 
+![inline 30%](https://lever-client-logos.s3.amazonaws.com/3a11c9ce-98fc-4715-9bdb-c4c4d924ef7d-1508186423731.png)
+
 - Serverless (easier)
 
 - Or Gradle plugin
-
-![inline 30%](https://lever-client-logos.s3.amazonaws.com/3a11c9ce-98fc-4715-9bdb-c4c4d924ef7d-1508186423731.png)
 
 ^ PG
 NPM pour l'install
@@ -881,7 +881,7 @@ Pas facile, nécessite de créer la function avant
 ```json
 {
   "scriptFile": "../function.jar",
-  "entryPoint": "FunctionKt.saveEvent",
+  "entryPoint": "fr.xebicon.FunctionKt.saveEvent",
   "bindings": [
     {
       "type": "httpTrigger",
@@ -940,26 +940,16 @@ B
 # SaveEvent.kt
 
 [.code-highlight: none]
-[.code-highlight: 1-3]
-[.code-highlight: 5]
-[.code-highlight: 7-10]
+[.code-highlight: 1]
+[.code-highlight: 2]
+[.code-highlight: 1-4]
 
 ```kotlin
-val moshi: Moshi = Moshi.Builder()
-  .add(KotlinJsonAdapterFactory())
-  .build()
-
-val eventAdapter: JsonAdapter<Event> = moshi.adapter(Event::class.java)
-
 fun saveEvent(data: String, context: ExecutionContext): String {
-  val event = eventAdapter.fromJson(data)
-  return event?.title ?: data
+  context.logger.info("saveEvent called with $data")
+  return "OK"
 }
 ```
-
-^Code Moshi (parsing JSON)
-
-^ B
 
 ---
 
@@ -975,38 +965,82 @@ fun saveEvent(data: String, context: ExecutionContext): String {
 
 ---
 
-# Function.kt
+# SaveEvent.kt
 
 [.code-highlight: none]
-[.code-highlight: 1-4]
-[.code-highlight: 6-7]
-[.code-highlight: 9-10]
-[.code-highlight: 12-16]
+[.code-highlight: 1-2]
+[.code-highlight: 4]
+[.code-highlight: 5]
+[.code-highlight: 6]
+[.code-highlight: 4-8]
 
 ```kotlin
-val client = DocumentClient("https://kt-azure.documents.azure.com:443/",
-  KEY,
-  ConnectionPolicy.GetDefault(),
-  ConsistencyLevel.Session)
+import fr.xebicon.extension.save
+import fr.xebicon.extension.toEvent
 
-val database: Database = client.queryDatabases("SELECT * FROM root r WHERE r.id='KtAzure'", null)
-  .queryIterable.toList()[0]
-
-val collection: DocumentCollection = client.queryCollections(database.selfLink, 
-"SELECT * FROM root r WHERE r.id='Events'", null).queryIterable.toList()[0]
-
-fun saveEvent(data: String, context: ExecutionContext): String {
-  val eventDocument = Document(data)
-  client.createDocument(collection.selfLink, eventDocument, null, false).resource
-  return data
+fun saveEvent(data: String): String {
+  val event = data.toEvent()
+  event?.save()
+  return event?.title ?: "unknown"
 }
 ```
 
-^ B
-Connexion à la DB (clé secrete)
+---
+ 
+# StringExtension.kt ❤️
+
+[.code-highlight: none]
+[.code-highlight: 1-3]
+[.code-highlight: 5-6]
+[.code-highlight: 8]
+
+```kotlin
+val moshi: Moshi = Moshi.Builder()
+  .add(KotlinJsonAdapterFactory())
+  .build()
+
+val eventAdapter: JsonAdapter<Event> = 
+  moshi.adapter(Event::class.java)
+
+fun String.toEvent(): Event? = eventAdapter.fromJson(this)
+```
+
+^Code Moshi (parsing JSON)
+B
+
+---
+# EventExtension.kt ❤️
+
+[.code-highlight: none]
+[.code-highlight: 1-3]
+[.code-highlight: 5-7]
+[.code-highlight: 9-11]
+[.code-highlight: 13-16]
+
+```kotlin
+val client = DocumentClient("...", KEY,
+  ConnectionPolicy.GetDefault(),
+  ConsistencyLevel.Session)
+
+val database: Database = 
+  client.queryDatabases("SELECT * FROM root r WHERE r.id='KtAzure'", null)
+  .queryIterable.toList()[0]
+
+val collection: DocumentCollection = 
+  client.queryCollections(database.selfLink, "SELECT * FROM root r WHERE r.id='Events'", null)
+  .queryIterable.toList()[0]
+
+fun Event.save(): Document {
+  val eventDocument = Document(eventAdapter.toJson(this))
+  return client.createDocument(collection.selfLink, eventDocument, null, false).resource
+}
+```
+
+^Connexion à la DB (clé secrete)
 Query DB
 Query Collection
 Créer un document sur un collection (JSON directement)
+B
 
 ---
 ![40%](https://adatumno.azureedge.net/wp-content/uploads/2018/07/functions-logo.png?2aa027)
