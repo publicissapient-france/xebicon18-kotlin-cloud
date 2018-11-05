@@ -74,8 +74,6 @@ Utiliser des bibliothèques connues
 
 ![](https://blog.socialcops.com/wp-content/uploads/2017/05/FeaturedImage-Android-Kotlin-Development-Engineering-SocialCops-Blog.png)
 
-- We are Android and backend developers
-
 - It enforces no particular philosophy of programming
 
 - Kotlin is already on Android
