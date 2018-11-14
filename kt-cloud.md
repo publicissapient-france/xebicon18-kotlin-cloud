@@ -29,7 +29,9 @@ Android developer
 
 ![left filtered](pg.jpg)
 
-Paul-Guillaume
+Paul-Guillaume Déjardin
+
+**@pgdejardin**
 
 Backend developer
 
@@ -230,6 +232,26 @@ data class User(
 ```
 
 That's all... 💪
+
+^ PG
+
+---
+
+# Extensions
+
+[.code-highlight: none]
+[.code-highlight: 1]
+[.code-highlight: 3]
+[.code-highlight: 5]
+
+```kotlin
+package fr.xebicon.extension
+
+fun Int.square(): Int = this * this
+
+2.square() // 4
+
+```
 
 ^ PG
 
