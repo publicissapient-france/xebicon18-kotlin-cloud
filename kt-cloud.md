@@ -1086,7 +1086,15 @@ B
 
 ---
 
-# Take away
+# What we have done?
+
+✅ Kotlin + AppEngine 👍
+✅ Kotlin + Serverless 👍
+✅ Kotlin + Azure function 👎 
+
+---
+
+# Also...
 
 ![60%](https://puppet.com/sites/default/files/2016-03/docker-logo-lg.png)
 ![60%](https://i1.wp.com/www.martinmajewski.net/wordpress/wp-content/uploads/2018/03/KotlinNativeOnMacLogo.png?fit=600%2C600&ssl=1)
