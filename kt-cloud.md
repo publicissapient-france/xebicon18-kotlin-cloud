@@ -580,10 +580,9 @@ NPM pour l'install
 ---
 
 [.code-highlight: none]
-[.code-highlight: 3-4]
-[.code-highlight: 8-9]
-[.code-highlight: 12-13]
-[.code-highlight: 16-18]
+[.code-highlight: 3, 8, 12]
+[.code-highlight: 4, 9, 16-18]
+[.code-highlight: 13]
 
 ```gradle
 buildscript {
