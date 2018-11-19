@@ -17,7 +17,7 @@ Check [kotlin-cloud.md](kotlin-cloud.md) based on [Deckset](https://www.deckset.
 - [x] Kt @ AppEngine
 - [x] Why kt is cool
 - [x] Kt @ AWS Lambda
-- [ ] Performance (@PG)
+- [x] Performance (@PG)
 - [x] Kt @ Azure Function
 - [x] Take away
 - [x] Take away: Kotlin as Java works with Docker (@Ben)
