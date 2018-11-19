@@ -456,8 +456,7 @@ gcloud app create
 ## Let's try __Datastore__!
 
 ^ BDD NoSQL
-Automatic scaling, ACID
-Key > Document
+ACID, SQL, index
 B
 
 ---
@@ -658,7 +657,7 @@ class SaveEvent : RequestHandler<Map<String, Any>, Unit> {
 [.code-highlight: 3]
 
 ```bash
-./gradlew shadowJar
+./gradlew shadowJar // Optional
 
 ./gradlew deploy
 ```
@@ -953,7 +952,7 @@ fun saveEvent(data: String, context: ExecutionContext): String {
 
 ## Let's try __CosmosDB__ 🌎
 
-^BDD multi-modèle distribuée, multiple data model : SQL API, MongoDB API, Cassandra API, etc.
+^DB bdd multi-modèle distribuée, SQL, MongoDB, Cassandra, etc.
 
 ^ B
 
