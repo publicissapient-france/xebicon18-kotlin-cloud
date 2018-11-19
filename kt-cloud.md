@@ -1090,7 +1090,9 @@ B
 
 ✅ Kotlin + AppEngine 👍
 ✅ Kotlin + Serverless 👍
-✅ Kotlin + Azure function 👎 
+✅ Kotlin + Azure function 👎
+Less vendor lock-in 👍
+Kotlin is a great alternative for Java 👍
 
 ---
 
