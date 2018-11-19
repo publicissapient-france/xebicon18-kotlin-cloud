@@ -1,3 +1,4 @@
+
 theme: XebiCon18
 slidenumbers: true
 
@@ -13,7 +14,7 @@ slidenumbers: true
 
 # Who we are?
 
-![left filtered](blacroix.jpg)
+![left](blacroix.jpg)
 
 Benjamin Lacroix
 
@@ -27,7 +28,7 @@ Android developer
 
 # Who we are?
 
-![left filtered](pg.jpg)
+![left](pg.jpg)
 
 Paul-Guillaume Déjardin
 
@@ -460,33 +461,6 @@ B
 
 ---
 
-# Save an event (Java)
-
-[.code-highlight: none]
-[.code-highlight: 1]
-[.code-highlight: 3]
-[.code-highlight: 5]
-[.code-highlight: 7-9]
-[.code-highlight: 11]
-
-```java
-Datastore service = DatastoreOptions.getDefaultInstance().getService();
-
-KeyFactory factory = service.newKeyFactory();
-
-IncompleteKey key = factory.setKind("events").newKey();
-
-FullEntity<IncompleteKey> entity = FullEntity.newBuilder(key)
-  .set("title", event.title)
-  .build();
-
-service.add(entity);
-```
-
-^ B
-
----
-
 # Save an event (Kt)
 
 [.code-highlight: none]
@@ -770,7 +744,7 @@ val client: AmazonDynamoDB = AmazonDynamoDBClientBuilder.standard().build()
 val db = DynamoDB(client)
 val table: Table = db.getTable(EVENTS)
 
-fun Event.save(): PutItemOutcome? =
+fun Event.save() =
   table.putItem(Item()
     .withPrimaryKey("title", title)
     .withString("description", description))
