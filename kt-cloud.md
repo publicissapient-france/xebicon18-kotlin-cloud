@@ -456,7 +456,8 @@ gcloud app create
 ## Let's try __Datastore__!
 
 ^ BDD NoSQL
-ACID, SQL, index
+Automatic scaling, ACID
+Key > Document
 B
 
 ---
@@ -953,7 +954,7 @@ fun saveEvent(data: String, context: ExecutionContext): String {
 
 ## Let's try __CosmosDB__ 🌎
 
-^DB bdd multi-modèle distribuée, SQL, MongoDB, Cassandra, etc.
+^BDD multi-modèle distribuée, multiple data model : SQL API, MongoDB API, Cassandra API, etc.
 
 ^ B
 
