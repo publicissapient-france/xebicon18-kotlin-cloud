@@ -1,4 +1,3 @@
-
 theme: XebiCon18
 slidenumbers: true
 
