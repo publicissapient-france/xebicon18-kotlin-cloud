@@ -614,6 +614,10 @@ AJOUT D'UNE TACHE
 
 # serverless.yml
 
+[.code-highlight: 1-4]
+[.code-highlight: 5-6]
+[.code-highlight: 7-14]
+
 ```yaml
 provider:
   name: aws
@@ -677,6 +681,8 @@ class SaveEvent : RequestHandler<Map<String, Any>, Unit> {
 ---
 
 # serverless.yml
+
+[.code-highlight: 5-9]
 
 ```yaml
 provider:
