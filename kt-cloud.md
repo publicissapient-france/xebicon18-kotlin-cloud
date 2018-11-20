@@ -1067,11 +1067,11 @@ B
 
 # What we have done?
 
-✅ Kotlin + AppEngine 👍
-✅ Kotlin + Serverless 👍
-✅ Kotlin + Azure function 👎
-Less vendor lock-in 👍
-Kotlin is a great alternative for Java 👍
+✅ Kotlin + AppEngine
+✅ Kotlin + Serverless
+☑️ Kotlin + Azure function
+Less vendor lock-in
+Kotlin is a great alternative for Java
 
 ---
 
